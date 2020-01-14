@@ -31,6 +31,11 @@
 		"phpunit/phpunit": "^5.7 || ^7",
 		"wp-coding-standards/wpcs": "^2"
 	},
+	"autoload": {
+	  "psr-4": {
+		"WPMedia\\Extender\\": "."
+	  }
+	},
 	"autoload-dev": {
 		"psr-4": {
 			"WPMedia\\Extender\\Tests\\Unit\\": "tests/Unit",

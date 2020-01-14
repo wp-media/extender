@@ -48,6 +48,6 @@ function init_constants( $test_suite_folder ) {
 	define( 'EXTENDER_TESTS_ROOT', __DIR__ . DIRECTORY_SEPARATOR . $test_suite_folder );
 
 	if ( 'Unit' === $test_suite_folder && ! defined( 'ABSPATH' ) ) {
-		define( 'ABSPATH', EXTENDER_ROOT );
+		define( 'ABSPATH', EXTENDER_ROOT_DIR );
 	}
 }
