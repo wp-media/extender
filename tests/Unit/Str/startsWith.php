@@ -17,6 +17,11 @@ class Test_StartsWith extends TestCase {
 
 		$this->assertTrue( Str::startsWith( 'Lorem ipsum', [ 'wp', 'ipsum', 'Lor' ] ) );
 		$this->assertTrue( Str::startsWith( '12 Lorem ipsum', [ 12 ] ) );
+
+		// Check with URLs.
+		$this->assertTrue( Str::startsWith( 'https://example.com', 'http' ) );
+		$this->assertTrue( Str::startsWith( 'https://example.com', 'https' ) );
+		$this->assertTrue( Str::startsWith( '//example.com/index.html', '//' ) );
 	}
 
 	public function testShouldReturnTrueWhenStartStartsWithNonLatin() {
@@ -41,6 +46,10 @@ class Test_StartsWith extends TestCase {
 
 		$this->assertFalse( Str::startsWith( 'Lorem ipsum', [ 'wp', 'ipsum', 'lorem' ] ) );
 		$this->assertFalse( Str::startsWith( '12 Lorem ipsum', [ 23 ] ) );
+
+		// Check with URLs.
+		$this->assertFalse( Str::startsWith( 'https://example.com', 'http://' ) );
+		$this->assertFalse( Str::startsWith( '//example.com/index.html', 'https://' ) );
 	}
 
 	public function testShouldReturnFalseWhenNonLatinDoesntStartWith() {

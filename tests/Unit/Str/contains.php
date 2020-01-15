@@ -15,6 +15,10 @@ class Test_Contains extends TestCase {
 
 		$this->assertTrue( Str::contains( $searchStr, [ 'wp', 59, 123, 'string' ] ) );
 		$this->assertTrue( Str::contains( $searchStr, [ 0 ] ) );
+
+		// Check with URLs.
+		$this->assertTrue( Str::contains( 'https://example.com', '://' ) );
+		$this->assertTrue( Str::contains( 'https://example.com/index.html', 'example.com' ) );
 	}
 
 	public function testShouldReturnFalseWhenDoesNotExists() {
@@ -26,5 +30,9 @@ class Test_Contains extends TestCase {
 
 		$this->assertFalse( Str::contains( $searchStr, [ 'wp', 59, 123, 'string' ] ) );
 		$this->assertFalse( Str::contains( $searchStr, [ 2 ] ) );
+
+		// Check with URLs.
+		$this->assertFalse( Str::contains( 'https://example.com', 'index.html' ) );
+		$this->assertFalse( Str::contains( '//example.com/', 'https://' ) );
 	}
 }
