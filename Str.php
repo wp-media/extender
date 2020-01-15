@@ -56,6 +56,43 @@ class Str {
 	 *
 	 * @return bool true when search string starts with the given character or substring; else false.
 	 */
+	public static function endsWith( $searchStr, $charOrSubstr, $encoding = null ) {
+		if ( ! is_string( $searchStr ) || '' === $searchStr || empty( $charOrSubstr ) ) {
+			return false;
+		}
+
+		if ( ! is_array( $charOrSubstr ) ) {
+			return self::matches( $searchStr, $charOrSubstr, null, $encoding );
+		}
+
+		foreach ( $charOrSubstr as $needle ) {
+			if ( '' === $needle ) {
+				continue;
+			}
+
+			if ( self::matches( $searchStr, $needle, null, $encoding ) ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Checks if a given search string starts with the given character(s) or substring(s).
+	 *
+	 * When given array of characters and/or substrings, returns `true` on the first match.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string               $searchStr    String to search.
+	 * @param string|integer|array $charOrSubstr The character(s) or substring(s) to search for within the search
+	 *                                           string.
+	 * @param string|null          $encoding     (Optional) Character encoding. When given, uses multi-byte safe
+	 *                                           operation. Default: null.
+	 *
+	 * @return bool true when search string starts with the given character or substring; else false.
+	 */
 	public static function startsWith( $searchStr, $charOrSubstr, $encoding = null ) {
 		if ( ! is_string( $searchStr ) || '' === $searchStr || empty( $charOrSubstr ) ) {
 			return false;
@@ -114,10 +151,14 @@ class Str {
 	 */
 	protected static function getSubstring( $searchStr, $charOrSubstr, $start = 0, $encoding = null ) {
 		if ( $encoding ) {
-			return (string) mb_substr( $searchStr, $start, mb_strlen( $charOrSubstr ) );
+			return is_null( $start )
+				? (string) mb_substr( $searchStr, -mb_strlen( $charOrSubstr ), null, $encoding )
+				: (string) mb_substr( $searchStr, $start, mb_strlen( $charOrSubstr ), $encoding );
 		}
 
-		return (string) substr( $searchStr, $start, strlen( $charOrSubstr ) );
+		return is_null( $start )
+			? (string) substr( $searchStr, -mb_strlen( $charOrSubstr ) )
+			: (string) substr( $searchStr, $start, strlen( $charOrSubstr ) );
 	}
 
 	/**
