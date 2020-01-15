@@ -7,7 +7,7 @@ use WPMedia\Extender\Tests\Unit\TestCase;
 
 class Test_EndsWith extends TestCase {
 
-	public function testShouldReturnTrueWhenStartStartsWith() {
+	public function testShouldReturnTrueWhenEndsWith() {
 		$this->assertTrue( Str::endsWith( 'Ends with a space ', ' ' ) );
 		$this->assertTrue( Str::endsWith( 'Lorem . period.', '.' ) );
 
@@ -19,7 +19,7 @@ class Test_EndsWith extends TestCase {
 		$this->assertTrue( Str::endsWith( 'Lorem ipsum 12', [ 12 ] ) );
 	}
 
-	public function testShouldReturnTrueWhenStartStartsWithNonLatin() {
+	public function testShouldReturnTrueWhenEndsWithNonLatin() {
 		$searchStr = "Τάχιστη αλώπηξ βαφής ψημένη γη, δρασκελίζει υπέρ νωθρού κυνός";
 
 		$this->assertTrue( Str::endsWith( $searchStr, 'νωθρού κυνός', 'UTF-8' ) );
@@ -30,7 +30,7 @@ class Test_EndsWith extends TestCase {
 		$this->assertTrue( Str::endsWith( $searchStr, [ 'ύ κυνός' ], 'UTF-8' ) );
 	}
 
-	public function testShouldReturnFalseWhenDoesntStartWith() {
+	public function testShouldReturnFalseWhenDoesntEndWith() {
 		$this->assertFalse( Str::endsWith( 'Does not end with a space', ' ' ) );
 		$this->assertFalse( Str::endsWith( 'Has a period . does not end with .it', '.' ) );
 
@@ -42,7 +42,7 @@ class Test_EndsWith extends TestCase {
 		$this->assertFalse( Str::endsWith( 'Lorem ipsum 12', [ 23 ] ) );
 	}
 
-	public function testShouldReturnFalseWhenNonLatinDoesntStartWith() {
+	public function testShouldReturnFalseWhenNonLatinDoesntEndWith() {
 		$searchStr = "Τάχιστη αλώπηξ βαφής ψημένη γη, δρασκελίζει υπέρ νωθρού κυνός";
 
 		$this->assertFalse( Str::endsWith( $searchStr, 'νωθρού κυν', 'UTF-8' ) );

@@ -8,6 +8,9 @@ use WPMedia\Extender\Tests\Unit\TestCase;
 class Test_StartsWith extends TestCase {
 
 	public function testShouldReturnTrueWhenStartStartsWith() {
+		$this->assertTrue( Str::startsWith( ' Lorem ipsum', ' ' ) );
+		$this->assertTrue( Str::startsWith( ', lorem ipsum', ',' ) );
+
 		$this->assertTrue( Str::startsWith( 'Lorem ipsum', 'L' ) );
 		$this->assertTrue( Str::startsWith( 'Lorem ipsum', 'Lorem ' ) );
 		$this->assertTrue( Str::startsWith( '12 Lorem ipsum', 12 ) );
@@ -29,6 +32,9 @@ class Test_StartsWith extends TestCase {
 	}
 
 	public function testShouldReturnFalseWhenDoesntStartWith() {
+		$this->assertFalse( Str::startsWith( 'Does not start with a space', ' ' ) );
+		$this->assertFalse( Str::startsWith( 'Has a period . does not start with it.', '.' ) );
+
 		$this->assertFalse( Str::startsWith( 'Lorem ipsum', 'l' ) );
 		$this->assertFalse( Str::startsWith( 'Lorem ipsum', 'lorem ' ) );
 		$this->assertFalse( Str::startsWith( '12 Lorem ipsum', 10 ) );
