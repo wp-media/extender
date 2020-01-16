@@ -24,16 +24,12 @@ class Str {
 			return false;
 		}
 
-		if ( ! is_array( $charOrSubstr ) ) {
-			return ( self::getPos( $searchStr, $charOrSubstr, 0, $encoding ) !== false );
-		}
-
-		foreach ( $charOrSubstr as $needle ) {
+		foreach ( (array) $charOrSubstr as $needle ) {
 			if ( '' === $needle ) {
 				continue;
 			}
 
-			if ( self::getPos( $searchStr, $needle, 0, $encoding ) !== false ) {
+			if ( mb_strpos( $searchStr, (string) $needle, $encoding ) !== false ) {
 				return true;
 			}
 		}
@@ -95,27 +91,6 @@ class Str {
 	}
 
 	/**
-	 * Gets the position of the first occurrence of the character or substring (needle) in given search string
-	 * (haystack).
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string               $searchStr    String to search.
-	 * @param string|integer|array $charOrSubstr The character(s) or substring(s) to search for within the search
-	 *                                           string.
-	 * @param int                  $offset       (Optional) Search offset. Default: 0.
-	 * @param string|null          $encoding     (Optional) Character encoding. When given, uses multi-byte safe
-	 *                                           operation. Default: null.
-	 *
-	 * @return bool|false|int position of 1st occurrence; if doesn't exist, returns false.
-	 */
-	protected static function getPos( $searchStr, $charOrSubstr, $offset = 0, $encoding = null ) {
-		return $encoding
-			? mb_strpos( $searchStr, (string) $charOrSubstr, $offset, $encoding )
-			: strpos( $searchStr, (string) $charOrSubstr, $offset );
-	}
-
-	/**
 	 * Gets a character or substring from the starting position (defaults to 0).
 	 *
 	 * @since 1.0.0
@@ -140,7 +115,7 @@ class Str {
 
 		// A null starting position means to search in the middle of the search string.
 		if ( is_null( $start ) ) {
-			$start = self::getPos( $searchStr, $needle, 0, $encoding );
+			$start = mb_strpos( $searchStr, $needle, 0, $encoding );
 		}
 
 		return $encoding
@@ -168,11 +143,7 @@ class Str {
 			return false;
 		}
 
-		if ( ! is_array( $charOrSubstr ) ) {
-			return self::getSubstring( $searchStr, $charOrSubstr, $start, $encoding ) === (string) $charOrSubstr;
-		}
-
-		foreach ( $charOrSubstr as $needle ) {
+		foreach ( (array) $charOrSubstr as $needle ) {
 			if ( '' === $needle ) {
 				continue;
 			}
