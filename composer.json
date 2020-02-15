@@ -31,10 +31,16 @@
 		"phpunit/phpunit": "^5.7 || ^7",
 		"wp-coding-standards/wpcs": "^2"
 	},
+	"autoload": {
+	  "psr-4": {
+		"WPMedia\\Extender\\": "."
+	  }
+	},
 	"autoload-dev": {
 		"psr-4": {
 			"WPMedia\\Extender\\Tests\\Unit\\": "tests/Unit",
-			"WPMedia\\Extender\\Tests\\Integration\\": "tests/Integration"
+			"WPMedia\\Extender\\Tests\\Integration\\": "tests/Integration",
+		  	"WPMedia\\MicroProfiler\\": "tests/MicroProfiler"
 		}
 	},
 	"scripts": {
@@ -47,6 +53,8 @@
 	  "install-codestandards": "Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\Plugin::run",
 	  "phpcs": "phpcs --basepath=.",
 	  "phpcs-changed": "./bin/phpcs-changed.sh",
-	  "phpcs:fix": "phpcbf"
+	  "phpcs:fix": "phpcbf",
+	  "microprofile":  "\"vendor/bin/phpunit\" --testsuite microprofiler --configuration tests/MicroProfiler/phpunit.xml.dist --color=always",
+	  "microprofiler-baseline":  "\"vendor/bin/phpunit\" --testsuite microprofiler-baseline --configuration tests/MicroProfiler/phpunit.xml.dist --color=always"
 	}
 }
